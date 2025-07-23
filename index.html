@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Matcher - Intelligent Task Assignment</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-users-cog"></i>
+                <span>Resume Matcher</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#upload" class="nav-link">Upload</a>
+                <a href="#match" class="nav-link">Match Tasks</a>
+                <a href="#candidates" class="nav-link">Candidates</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Intelligent Task Assignment</h1>
+                <p class="hero-subtitle">Upload employee resumes and find the perfect match for any task using AI-powered analysis</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <i class="fas fa-file-upload"></i>
+                        <span class="stat-number" id="uploadCount">0</span>
+                        <span class="stat-label">Resumes Uploaded</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-tasks"></i>
+                        <span class="stat-number" id="taskCount">0</span>
+                        <span class="stat-label">Tasks Matched</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-star"></i>
+                        <span class="stat-number" id="avgScore">0</span>
+                        <span class="stat-label">Avg Match Score</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI-Powered Matching</h3>
+                    <p>Advanced algorithms analyze skills and experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Upload Employee Resumes</h2>
+                <p>Upload PDF or DOCX resumes to build your candidate database</p>
+            </div>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Drag & Drop Resumes Here</h3>
+                    <p>or click to browse files</p>
+                    <input type="file" id="fileInput" accept=".pdf,.docx" multiple hidden>
+                    <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                        Choose Files
+                    </button>
+                </div>
+            </div>
+
+            <div class="upload-progress" id="uploadProgress" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">Processing...</p>
+            </div>
+
+            <div class="uploaded-files" id="uploadedFiles"></div>
+        </div>
+    </section>
+
+    <!-- Task Matching Section -->
+    <section id="match" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Find Perfect Task Matches</h2>
+                <p>Describe your task and get AI-recommended candidates</p>
+            </div>
+
+            <div class="match-form">
+                <div class="form-group">
+                    <label for="taskDescription">Task Description</label>
+                    <textarea 
+                        id="taskDescription" 
+                        placeholder="Describe the task in detail. For example: We need a senior Python developer to build a data processing pipeline using Pandas and AWS S3. The project involves working with large datasets and requires experience with cloud infrastructure..."
+                        rows="4"
+                    ></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="topN">Number of Top Candidates</label>
+                    <select id="topN">
+                        <option value="3">Top 3</option>
+                        <option value="5" selected>Top 5</option>
+                        <option value="10">Top 10</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary btn-large" id="findMatchesBtn">
+                    <i class="fas fa-search"></i>
+                    Find Matches
+                </button>
+            </div>
+
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <h3>Top Matches</h3>
+                <div class="results-grid" id="resultsGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Candidates Section -->
+    <section id="candidates" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>All Candidates</h2>
+                <p>View all uploaded employee profiles</p>
+            </div>
+
+            <div class="candidates-grid" id="candidatesGrid">
+                <div class="loading">Loading candidates...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Resume Matcher. Powered by AI.</p>
+        </div>
+    </footer>
+
+    <!-- Loading Modal -->
+    <div class="modal" id="loadingModal">
+        <div class="modal-content">
+            <div class="spinner"></div>
+            <p id="loadingText">Processing...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
